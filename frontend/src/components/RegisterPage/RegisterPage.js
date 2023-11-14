@@ -8,9 +8,12 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import ROLE from '../../constants/Role';
 import Navbar from '../Navbar/Navbar'
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function LoginPage() {
+    const navigate = useNavigate()
 
     const [role, setRole] = useState('');
     const [username, setUsername] = useState('');
@@ -35,9 +38,10 @@ function LoginPage() {
 
             if (response.ok) {
                 const data = await response.json();
+                navigate("/product")
                 setMessage(data.message); // Message from the backend
             } else {
-                setMessage('Error during registration');
+                setMessage('please fill all the details');
             }
         } catch (error) {
             setMessage('Error during registration');
@@ -55,6 +59,8 @@ function LoginPage() {
                     marginLeft: '5%', // Use a percentage for responsiveness
                     marginRight: '5%', // Use a percentage for responsiveness
                     // maxWidth: '90%', // Use a percentage for responsiveness
+                    marginTop: "15px",
+                    marginBottom: "15px",
                     minWidth: '300px',
                     '@media (max-width: 600px)': {
                         marginLeft: '50%', // Adjust for smaller screens
@@ -69,7 +75,7 @@ function LoginPage() {
                         flexDirection: 'column', // Stack the text fields vertically
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: '300px',
+                        height: '500px',
                         minWidth: '50px',
                         border: '1px solid',
                         borderColor: 'black',
@@ -102,7 +108,7 @@ function LoginPage() {
                         sx={{
                             width: '300px', // specify the width
                             height: '50px', // specify the height
-                            marginBottom: '10px', // Add space between the text fields
+                            marginBottom: '15px', // Add space between the text fields
                         }}
                     />
                     <TextField
@@ -114,7 +120,7 @@ function LoginPage() {
                         sx={{
                             width: '300px', // specify the width
                             height: '50px', // specify the height
-                            marginBottom: '10px', // Add space between the text fields
+                            marginBottom: '15px', // Add space between the text fields
                         }}
                     />
                     <TextField
@@ -126,7 +132,7 @@ function LoginPage() {
                         sx={{
                             width: '300px', // specify the width
                             height: '50px', // specify the height
-                            marginTop: '10px', // Add space between the text fields
+                            marginBottom: '15px', // Add space between the text fields
                         }}
                     />
                     <Box sx={{ minWidth: 120 }}>
@@ -138,14 +144,24 @@ function LoginPage() {
                                 value={role}
                                 label="role"
                                 onChange={handleChange}
+                                sx={{
+                                    marginBottom: '15px', // Add space between the text fields
+                                }}
                             >
                                 <MenuItem value={ROLE.BUYER}>Buyer</MenuItem>
                                 <MenuItem value={ROLE.SELLER}>Seller</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
-                    <Button variant="contained" onClick={handleSubmit}>Register</Button>
+                    <Button variant="contained" onClick={handleSubmit} sx={{
+                        marginBottom: "15px"
+                    }}>Register</Button>
                     {message && <p>{message}</p>}
+                    <Typography> Already Register ?
+                        <hr>
+                        </hr>
+                        <Link to="/" style={{ color: "green", display: 'flex', justifyContent: 'center', alignItems: 'center', }}>Login</Link>
+                    </Typography>
                 </Box>
             </Box>
         </>

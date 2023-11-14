@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import Product from './components/Product/Product'
@@ -9,14 +9,22 @@ import Footer from './components/Footer/Footer';
 function App() {
   return (
     <>
-      <Router>
-        <LoginPage />
+      <BrowserRouter>
         <Routes>
-          <Route exact path="/" component={LoginPage} />
-          <Route path="/product" component={Product} />
-          {/* <RegisterPage /> */}
+          {/* Route for the login page */}
+          <Route exact path="/" element={<LoginPage />} />
+
+          {/* Route for the product page */}
+          <Route exact path="/product" element={<Product />} />
+
+          <Route exact path="/register" element={<RegisterPage />} />
+
+          {/* Uncomment the following line if you want a separate route for the register page */}
+          {/* <Route path="/register" element={<RegisterPage />} /> */}
         </Routes>
-      </Router>
+
+        {/* LoginPage outside of Routes will not be rendered when inside a specific route */}
+      </BrowserRouter>
       <Footer />
     </>
   );

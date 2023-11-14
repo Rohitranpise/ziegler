@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import ROLE from '../../constants/Role';
 import Navbar from '../Navbar/Navbar';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -33,11 +33,13 @@ function LoginPage() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(response)
+                const jwtToken = data.token;
+                console.log(jwtToken)
+
                 navigate('/product');
                 setMessage(data.message); // Message from the backend
             } else {
-                setMessage('Error during registration');
+                setMessage('Invalid credentials!');
             }
         } catch (error) {
             setMessage('Error during registration');
@@ -55,6 +57,8 @@ function LoginPage() {
                     marginLeft: '5%', // Use a percentage for responsiveness
                     marginRight: '5%', // Use a percentage for responsiveness
                     // maxWidth: '90%', // Use a percentage for responsiveness
+                    marginTop: "15px",
+                    marginBottom: "15px",
                     minWidth: '300px',
                     '@media (max-width: 600px)': {
                         marginLeft: '50%', // Adjust for smaller screens
@@ -69,7 +73,7 @@ function LoginPage() {
                         flexDirection: 'column', // Stack the text fields vertically
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: '300px',
+                        height: '420px',
                         minWidth: '50px',
                         border: '1px solid',
                         borderColor: 'black',
@@ -102,7 +106,7 @@ function LoginPage() {
                         sx={{
                             width: '300px', // specify the width
                             height: '50px', // specify the height
-                            marginBottom: '10px', // Add space between the text fields
+                            marginBottom: '15px', // Add space between the text fields
                         }}
                     />
                     <TextField
@@ -114,11 +118,19 @@ function LoginPage() {
                         sx={{
                             width: '300px', // specify the width
                             height: '50px', // specify the height
-                            marginTop: '10px', // Add space between the text fields
+                            marginTop: '15px', // Add space between the text fields
                         }}
                     />
-                    <Button variant="contained" onClick={handleSubmit}>Login</Button>
+                    <Button variant="contained" onClick={handleSubmit} sx={{ marginTop: "25px" }}>Login</Button>
                     {message && <p>{message}</p>}
+                    <Typography
+                        sx={{
+                            marginTop: "15px"
+                        }}> Not Register ?
+                        <hr>
+                        </hr>
+                        <Link to="/register" style={{ color: "green", display: 'flex', justifyContent: 'center', alignItems: 'center', }}>Register here</Link>
+                    </Typography>
                 </Box>
             </Box>
         </>
