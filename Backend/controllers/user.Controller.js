@@ -50,7 +50,7 @@ const userSignIn = async (req, res) => {
 
             if (passwordMatch) {
                 const token = jwt.sign({ id: user.id, role: user.role }, secret_key, { expiresIn: max });
-                res.status(200).json({ token });
+                res.status(200).json({ token: token, user: user });
             } else {
                 // Password doesn't match
                 res.status(401).json({ error: 'Invalid credentials' });
