@@ -5,9 +5,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Grid } from '@mui/material';
 import Navbar from '../Navbar/Navbar'
+import { useUser } from '../Context/UserContext';
 
 export default function Product() {
     const [products, setProducts] = React.useState([]);
+    const { user } = useUser();
+
+    console.log(user)
 
     React.useEffect(() => {
         const fetchProducts = async () => {
@@ -33,7 +37,6 @@ export default function Product() {
             <Navbar />
             <Grid container spacing={2}>
                 {products.map((items) => {
-                    { console.log(items.product_images.imageUrl) }
                     return (
                         <Card sx={{ maxWidth: 345, margin: 10 }}>
                             <CardActionArea>

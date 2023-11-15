@@ -9,11 +9,13 @@ import Button from '@mui/material/Button';
 import ROLE from '../../constants/Role';
 import Navbar from '../Navbar/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from '../Context/UserContext';
 
 
 
 function LoginPage() {
     const navigate = useNavigate();
+    const { setUserDetails } = useUser();
 
 
     const [username, setUsername] = useState('');
@@ -33,8 +35,9 @@ function LoginPage() {
 
             if (response.ok) {
                 const data = await response.json();
-                const jwtToken = data.token;
-                console.log(jwtToken)
+                console.log(data.user)
+                setUserDetails(data.user);
+                localStorage.setItem('token', data.token);
 
                 navigate('/product');
                 setMessage(data.message); // Message from the backend
