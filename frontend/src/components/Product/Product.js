@@ -11,8 +11,6 @@ export default function Product() {
     const [products, setProducts] = React.useState([]);
     const { user } = useUser();
 
-    console.log(user)
-
     React.useEffect(() => {
         const fetchProducts = async () => {
             try {
