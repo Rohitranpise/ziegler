@@ -3,9 +3,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, Grid } from '@mui/material';
+import { Box, CardActionArea, Grid } from '@mui/material';
 import Navbar from '../Navbar/Navbar'
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../Context/UserContext';
+import { Category } from '../../constants/Role';
 
 export default function Product() {
     const [products, setProducts] = React.useState([]);
@@ -36,8 +38,8 @@ export default function Product() {
             <Grid container spacing={2}>
                 {products.map((items) => {
                     return (
-                        <Card sx={{ maxWidth: 345, margin: 10 }}>
-                            <CardActionArea>
+                        <Card sx={{ maxWidth: 345, margin: 10 }} key={items._id}>
+                            <CardActionArea onClick={() => console.log(items._id)}>
                                 <CardMedia
                                     component="img"
                                     height="140"
@@ -54,6 +56,33 @@ export default function Product() {
                     )
                 })}
             </Grid>
+            <Box sx={{ marginTop: "10px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <Typography>categories</Typography>
+            </Box>
+            <hr />
+            <Box sx={{
+                marginTop: "15px",
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: "20px",
+                marginLeft: "20px"
+            }}
+            >
+                {Category.map((items) => {
+                    return (
+                        <Card sx={{ height: "200px", width: "150px" }}>
+                            {items}
+                            <CardMedia
+                                component="img"
+                                height="80"
+                                image="https://images.pexels.com/photos/462118/pexels-photo-462118.jpeg?cs=srgb&dl=bloom-blooming-blossom-462118.jpg&fm=jpg"
+                                alt="hello"
+                            />
+                        </Card>
+                    )
+                })}
+            </Box>
         </>
     );
 }
